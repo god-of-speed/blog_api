@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Role;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\File;
@@ -9,7 +10,13 @@ use Illuminate\Support\Facades\Validator;
 class UserController extends Controller{
 
     public function user() {
-        return response()->json(['user'=>auth()->user()],200);
+        if(auth()->user()) {
+            return response()->json([
+                'user'=>auth()->user(),
+                'role' => Role::find(auth()->user()->roleId)
+            ],200);
+        }
+        return response()->json(["error"=>"Unauthenticated"],401);
     }
 
     public function updateAvatar(Request $request) {
@@ -23,7 +30,7 @@ class UserController extends Controller{
         ]);
 
         if($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()],400);
+            return response()->json(['errors' => $validator->errors()],406);
         }
 
         //set user
@@ -58,5 +65,10 @@ class UserController extends Controller{
         }catch(\Exception $error) {
             return response()->json(['error' => $error->getMessage()],500);
         }
+    }
+
+    public function logMeOut() {
+        auth()->logout();
+        return response()->json(true,200);
     }
 }

@@ -1,0 +1,7 @@
+Laravel Cron Job is an inbuilt task manager that gives your applications the ability to execute specific commands like sending a slack notification or removing inactive users at a periodic time. We will be using the latest version of Laravel, which is 5.6 at the time of writing this article.
+
+Above code also contains the description property. This is where you place the actual description of what this command will do. Description will be shown when the Artisan list command is executed alongside the signature. Change the description of the command to run.
+
+method will run the command you would pass as the first argument. In the code above, it simply copies your laravel project to the backups folder. The backups folder will be followed by the day of the month and a numeric representation of the year. You can also schedule Laravel Jobs in the Task Scheduler the same way we scheduled Artisan commands and closures. Let’s take a look at the Task Scheduler in detail.
+
+Let’s setup the Cron Jobs to run automatically without initiating manually by running the command. To start the Laravel Scheduler itself, we only need to add one Cron job which executes every minute. Go to your terminal, ssh into your server, cd into your project and run this command.One of the most important advantages of Laravel Task Scheduler is that we can focus on creating commands, writing logic and Laravel will take care of the rest. It is manageable by other co-workers because it is now tracked by version control.

@@ -10,6 +10,7 @@ use App\Content;
 use App\TopicContent;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Response;
 
 class IndexController extends Controller {
     public function index(Request $request) {
@@ -25,10 +26,18 @@ class IndexController extends Controller {
                                 ->take(20)
                                 ->orderBy('updated_at','desc')
                                 ->get();
+            //load body as string
+            foreach($contents as $content) {
+                $body = \file_get_contents(public_path().'/'.$content->body);
+                $body = preg_replace('/[\n]/','&n&',$body);
+                $bodyArr = explode('&n&&n&',$body);
+                $content->body = $bodyArr[0];
+            }
+
             $totalResult = count(Content::where('isPublished',true)->orderBy('updated_at','desc')
                                          ->get());
 
-            return response()->json(['result'=>[$contents,$totalResult]],200);
+            return response()->json(["contents"=>$contents,"totalResult"=>$totalResult],200);
         }catch(\Exception $error) {
             return response()->json(['error' => $error->getMessage()],500);
         }
@@ -50,6 +59,7 @@ class IndexController extends Controller {
                 $topicContents = TopicContent::leftJoin('contents',function($join){
                                     $join->on('topic_contents.contentId','=','contents.id');
                                 })
+                                ->select('contents.body','contents.id AS contentId','contents.title','contents.featuredImage')
                                 ->where([
                                     ['topic_contents.topicId',$topic->id],
                                     ['contents.isPublished',true]
@@ -58,6 +68,14 @@ class IndexController extends Controller {
                                 ->take(20)
                                 ->orderBy('topic_contents.updated_at','desc')
                                 ->get();
+
+                foreach($topicContents as $content) {
+                    $body = \file_get_contents(public_path().'/'.$content->body);
+                    $body = preg_replace('/[\n]/','&n&',$body);
+                    $bodyArr = explode('&n&&n&',$body);
+                    $content->body = $bodyArr[0];
+                }
+
                 $totalResult = count(TopicContent::leftJoin('contents',function($join){
                     $join->on('topic_contents.contentId','=','contents.id');
                 })
@@ -70,13 +88,7 @@ class IndexController extends Controller {
                 ->orderBy('topic_contents.updated_at','desc')
                 ->get());
 
-                //get content
-                $contents = [];
-                foreach($topicContents as $topicContent) {
-                    $contents[] = Content::find($topicContent->contentId);
-                }
-
-                return response()->json(['result'=>[$contents,$totalResult]],200);
+                return response()->json(['contents' => $topicContents,'totalResult' => $totalResult],200);
             }
         }
         return response()->json(['error'=>'Topic does not exist'],405);
@@ -100,20 +112,32 @@ class IndexController extends Controller {
                 }
 
                 //get content comments
-                $comments = Comment::where('contentId',$content->id)
-                                     ->orderBy('updated_at','desc')
+                $comments = Comment::leftJoin('users',function($join){
+                    $join->on('comments.userId','=','users.id');
+                })
+                ->select('comments.id','comments.comment','users.name')
+                ->where('comments.contentId',$content->id)
+                                     ->orderBy('comments.updated_at','desc')
                                      ->get();
                 //update content view
                 $update = $content->update([
                     "views" => $content->views++
                 ]);
+                //set author details
+                $content->author = User::find($content->author);
+                //set content body
+                $body = \file_get_contents(public_path().'/'.$content->body);
+                $content->body = $body; 
                 
-                return response()->json(['result'=> [$content,$topics,$comments]],200);
+                return response()->json([
+                    "content" => $content,
+                    "topics" => $topics,
+                    "comments" => $comments],200);
             }
         }
         return response()->json(['error'=>'Content does not exist'],405);
         }catch(\Exception $error) {
-            return response()->json(['error' => 'Server error'],500);
+            return response()->json(['error' => $error->getMessage()],500);
         }
     }
 
@@ -169,11 +193,32 @@ class IndexController extends Controller {
         try{
             $search = $request->query('search');
             if($search != "") {
-                $contents = Content::where(strtolower('title'),'like','%'.strtolower($search).'%')
-                                    ->orderBy('created_at','desc')
-                                    ->get();
+                $page = $request->query('page');
+            if(isset($page) && is_int((int)$page)) {
+                $start = ($page * 20) - 20;
+            }else{
+                $start = 0;
+            }
+
+                $contents = Content::where([
+                    ['isPublished',true],
+                    [strtolower('title'),'like','%'.strtolower($search).'%']
+                ])
+                ->skip($start)
+                ->take(20)
+                ->orderBy('updated_at','desc')
+                ->get();
+                
+                //load body as string
+            foreach($contents as $content) {
+                $body = \file_get_contents(public_path().'/'.$content->body);
+                $body = preg_replace('/[\n]/','&n&',$body);
+                $bodyArr = explode('&n&&n&',$body);
+                $content->body = $bodyArr[0];
+            }
+
                 $totalResult = count($contents);
-                return response()->json(['result'=>[$contents,$totalResult]],200);
+                return response()->json(['contents'=>$contents,'totalResult'=>$totalResult],200);
             }
         }catch(\Exception $error) {
             return response()->json(['error' => 'Server error'],500);

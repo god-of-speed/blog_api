@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Role;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -36,7 +38,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        $this->middleware('guest');
     }
 
     public function login(Request $request) {
@@ -44,17 +46,14 @@ class LoginController extends Controller
         $credentials = $request->only(['email','password']);
 
         if(!$token = auth()->attempt($credentials)) {
-            return response()->json(['error'=>'Invalid credentials'],401);
+            return response()->json(['error'=>'Invalid credentials'],406);
         }
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60 * 24 * 7
-        ]);
-    }
 
-    public function logout() {
-        auth()->logout();
-        return response()->json(true,200);
+        return response()->json([
+            'user' => auth()->user(),
+            'role' => Role::find(auth()->user()->roleId),
+            'access_token' => $token,
+            'token_type' => 'bearer'
+        ]);
     }
 }

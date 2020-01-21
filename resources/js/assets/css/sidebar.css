@@ -1,0 +1,133 @@
+#desktop-sidebar {
+  width: 15%;
+  height: 944px;
+  position: fixed;
+  top: 80px;
+  left: 0;
+  padding: 0;
+  box-shadow: 1px 0px 0px 0px rgba(0,0,0,0.25);
+  cursor:default;
+}
+
+#mobile-sidebar{
+    display:none;
+}
+
+#desktop-sidebar a {
+  width: 100%;
+  height: 40px;
+  background-color: inherit;
+  text-decoration: none;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 5px;
+  box-sizing: border-box;
+  color: inherit;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 28px;
+  color: #000000;
+  margin: 0;
+}
+
+#desktop-sidebar div{
+    width:100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+    align-items: center;
+}
+
+#desktop-sidebar div a {
+  width: 150px !important;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #8b0000;
+  color: #ffffff;
+}
+
+#desktop-sidebar a:first-child {
+  margin-top: 40px;
+  width: 100%;
+  height: 40px;
+}
+#desktop-sidebar a.active {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    color: #ffffff;
+  background-color: #003366;
+}
+
+@media only screen and (max-width:760px) {
+    #mobile-sidebar {
+        width: 100%;
+        height: 80%;
+        display: block;
+        position: fixed;
+        top: 100px;
+        left: 0;
+        padding: 0;
+        cursor:default;
+      }
+
+      #desktop-sidebar{
+          display:none;
+      }
+
+      #mobile-sidebar a {
+        width: 100%;
+        height: 40px;
+        background-color: inherit;
+        text-decoration: none;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        padding-left: 5px;
+        box-sizing: border-box;
+        color: inherit;
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 15px;
+        line-height: 28px;
+        color: #000000;
+        margin: 0;
+      }
+
+      #mobile-sidebar div{
+          width:100%;
+          display: flex;
+          justify-content: center;
+          margin-top: 60px;
+          align-items: center;
+      }
+      
+      #mobile-sidebar div a {
+        width: 150px !important;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #8b0000;
+        color: #ffffff;
+      }
+      
+      #mobile-sidebar a:first-child {
+        margin-top: 40px;
+        width: 100%;
+        height: 40px;
+      }
+      #mobile-sidebar a.active {
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          color: #ffffff;
+        background-color: #003366;
+      }
+}

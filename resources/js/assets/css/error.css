@@ -1,0 +1,29 @@
+#error{
+    width:98%;
+    height: 35px;
+    color:#fff;
+    background-color: darkred;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 7px;
+    box-sizing: border-box;
+}
+
+#error #first{
+    width:80%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#error #second{
+    width:20%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#error #second #icon{
+    font-size: 12px;
+}

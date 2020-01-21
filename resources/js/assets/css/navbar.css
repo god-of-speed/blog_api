@@ -1,0 +1,217 @@
+#header{
+    width:100%;
+    height:80px;
+    margin:0;
+    padding: 10px 0px 0px 0px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    position: fixed;
+    top:0;
+    line-height: 1.6em;
+    word-spacing: 0.05em;
+    font-size: 14px;
+    font-family: "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
+    color:#304455;
+    box-shadow: 0 0 2px rgba(0,0,0,0.25);
+    z-index: 1;
+}
+
+#desktop-menu{
+    width:100%;
+    height:100%;
+    margin:0;
+    padding: 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: #fff;
+}
+
+#mobile-menu{
+    display:none;
+}
+
+#desktop-menu #logo-div{
+    width:25%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#desktop-menu #logo{
+    width:250px;
+    height: 100%;
+}
+
+#desktop-menu #search-div{
+    width:30%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#desktop-menu #search-bar{
+    width:235px;
+    height: 30px;
+    background-color: #f8f8ff;
+    border: 1px solid #000000;
+    border-right: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+#desktop-menu #search-btn{
+    width:54px;
+    border:1px solid #000000;
+    border-left: 0;
+    height: 30px;
+    background-color: #003366;
+    color:#ffffff;
+}
+
+#desktop-menu #links-div{
+    width:45%;
+    height: 100%;
+    padding:10px;
+    margin:0;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#desktop-menu #avatar{
+    width:32px;
+    height: 30px;
+}
+
+#desktop-menu #links-div a{
+    cursor: default;
+    color:inherit;
+    text-decoration: none;
+    margin-right: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#desktop-menu #links-div a.active{
+    border-bottom: 1px solid #304455;
+}
+
+#desktop-menu #links-div a:first-child{
+    margin-right: 5px;
+}
+
+#mobile-search-div{
+    display: none;
+}
+
+@media only screen and (max-width:760px) {
+    #header{
+        height:100px;
+        position: absolute;
+        top:0;
+    }
+
+    #desktop-menu{
+        display: none;
+    }
+
+    #mobile-menu{
+        width:100%;
+        height:50%;
+        margin:0;
+        padding: 0;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    #mobile-menu #menu-div{
+        width:12%;
+        display: flex;
+        padding-left: 15px;
+        justify-content: center;
+        align-items: center;
+        height:100%;
+        color:#000000;
+        box-sizing: border-box;
+    }
+
+    #mobile-menu #logo-div{
+        height: 100%;
+        width:74%;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+
+    #mobile-menu #logo{
+        width:200px;
+        height: 100%;
+    }
+
+    #mobile-menu #links-div{
+        width:12%;
+        padding:0;
+        margin: 0;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    #mobile-menu #avatar{
+        width:32px;
+        height: 30px;
+    }
+    
+    #mobile-menu #links-div a{
+        cursor: default;
+        color:inherit;
+        text-decoration: none;
+        margin-right: 14px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #mobile-search-div{
+        width:100%;
+        height:50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #mobile-search-div #search-bar{
+        width:200px;
+        height: 25px;
+        background-color: #f8f8ff;
+        border: 1px solid #000000;
+        border-right: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+    
+    #mobile-search-div #search-btn{
+        width:40px;
+        border:1px solid #000000;
+        border-left: 0;
+        height: 25px;
+        background-color: #003366;
+        color:#ffffff;
+        font-size: 14px;
+    }
+}

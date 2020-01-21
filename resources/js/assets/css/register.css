@@ -1,0 +1,111 @@
+#register{
+    width:62%;
+    position: absolute;
+    top: 80px;
+    left:15%;
+    padding:20px 0px 10px 0px;
+    margin:0;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    flex-direction: column;
+    line-height: 1.6em;
+    word-spacing: 0.05em;
+    font-size: 14px;
+    font-family: "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
+    color:#304455;
+}
+
+#register h4{
+    font-size:"17px";
+    border-bottom:1px solid rgba(0,0,0,0.25);
+}
+
+#register #form {
+    width:40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#register #form input{
+    width:90%;
+    height:35px;
+    margin-bottom: 5px;
+    padding:5px;
+    box-sizing: border-box;
+    border:1px solid rgba(0,0,0,0.25);
+}
+
+#register #form #submit-div{
+    width:90%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#register #form #submit-div #submit{
+    width:150px;
+    height: 30px;
+    border:0;
+    background-color: #304455;
+    color:#fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#register #others {
+    width:40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top:10px;
+}
+
+#register #others a{
+    text-decoration: none;
+    color:blue;
+}
+
+@media only screen and (max-width:760px) {
+    #register{
+        width:100%;
+        position: absolute;
+        top: 100px;
+        left:0;
+        padding:20px 0px 10px 0px;
+        margin:0;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        box-sizing: border-box;
+        flex-direction: column;
+        line-height: 1.6em;
+        word-spacing: 0.05em;
+        font-size: 14px;
+        font-family: "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
+        color:#304455;
+    }
+
+    #register #form {
+        width:90%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    #register #others {
+        width:100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin-top:10px;
+    }
+}
+

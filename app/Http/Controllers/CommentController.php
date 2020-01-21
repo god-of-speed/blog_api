@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Comment;
 use App\Content;
 use Carbon\Carbon;
@@ -13,7 +14,7 @@ class CommentController extends Controller {
     public function createComment(Request $request) {
         try{
             //get data
-        $data = $request->only('comment','replyTo');
+        $data = $request->only('comment');
 
         //validate
         $validator = Validator::make($data,[
@@ -21,7 +22,7 @@ class CommentController extends Controller {
         ]);
 
         if($validator->fails()) {
-            return response()->json(['errors'=>$validator->errors()]);
+            return response()->json(['errors'=>$validator->errors()],406);
         }
         
         //get content
@@ -32,9 +33,15 @@ class CommentController extends Controller {
                 $comment = Comment::create([
                     'contentId' => $content->id,
                     'userId' => auth()->user()->id,
-                    'replyTo' => $data['replyTo'] != null ? $data['replyTo'] : null,
                     'comment' => $data['comment']
                 ]);
+                $comment = Comment::leftJoin('users',function($join){
+                    $join->on('comments.userId','=','users.id');
+                })
+                ->select('comments.id','comments.comment','users.name')
+                ->where('comments.id',$comment->id)
+                ->first();
+
                 return response()->json(['comment'=> $comment],200);
             }
         }
@@ -54,7 +61,7 @@ class CommentController extends Controller {
          ]);
  
          if($validator->fails()) {
-             return response()->json(['errors'=>$validator->errors()]);
+             return response()->json(['errors'=>$validator->errors()],406);
          }
 
          //get content

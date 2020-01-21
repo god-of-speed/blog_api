@@ -16,7 +16,6 @@ class ContentController extends Controller {
         try{
                     //get data
         $data = $request->only('title','featuredImage','body','topics');
-
         //validate data
         $validator = Validator::make($data,[
             'title' => ['required','string'],
@@ -26,7 +25,7 @@ class ContentController extends Controller {
 
         //check if data validation failed
         if($validator->fails()) {
-            return response()->json(['errors'=>$validator->errors()],400);
+            return response()->json(['errors'=>$validator->errors()],406);
         }
         
         //get saved featuredImage and featuredVideo name
@@ -133,7 +132,7 @@ class ContentController extends Controller {
         ]);
 
         if($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()],400);
+            return response()->json(['errors' => $validator->errors()],406);
         }
         
         //get content
@@ -170,7 +169,7 @@ class ContentController extends Controller {
         ]);
 
         if($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()],400);
+            return response()->json(['errors' => $validator->errors()],406);
         }
 
         //get content
@@ -247,7 +246,7 @@ class ContentController extends Controller {
         ]);
 
         if($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()],400);
+            return response()->json(['errors' => $validator->errors()],406);
         }
         //get content
         $content = $request->query('content');

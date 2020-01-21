@@ -1,0 +1,45 @@
+@import "./general.css";
+
+#container {
+    width:100%;
+    padding: 0;
+    height: 100%;
+    margin: 0;
+    background-color: #ffffff;
+}
+
+#app-loader {
+    width: 62%;
+    height: 88%;
+    position: fixed;
+    top: 100px;
+    left:15%;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#app-loading-gif{
+    width:30px;
+    height:30px;
+}
+
+@media only screen and (max-width:760px) {
+    #app-loader {
+        width: 100%;
+        height: 88%;
+        position: fixed;
+        top: 100px;
+        left:0%;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    #app-loading-gif{
+        width:30px;
+        height:30px;
+    }
+}

@@ -78,7 +78,7 @@ class AdminController extends Controller {
         ]);
 
         if($validator->fails()) {
-            return response()->json(['errors'=>$validator->errors()],400);
+            return response()->json(['errors'=>$validator->errors()],406);
         }
 
         $topic = Topic::create([
@@ -101,7 +101,7 @@ class AdminController extends Controller {
             ]);
 
             if($validator->fails()) {
-                return response()->json(['errors'=>$validator->errors()],400);
+                return response()->json(['errors'=>$validator->errors()],406);
             }
 
             //get topic
@@ -195,10 +195,19 @@ class AdminController extends Controller {
                                 ->take(20)
                                 ->orderBy('updated_at','desc')
                                 ->get();
+
+            //load body as string
+            foreach($contents as $content) {
+                $body = \file_get_contents(public_path().'/'.$content->body);
+                $body = preg_replace('/[\n]/','&n&',$body);
+                $bodyArr = explode('&n&&n&',$body);
+                $content->body = $bodyArr[0];
+            }
+
             $totalResult = count(Content::where('isPublished',false)->orderBy('updated_at','desc')
                                          ->get());
 
-            return response()->json(['result'=>[$contents,$totalResult]],200);
+            return response()->json(["contents"=>$contents,"totalResult"=>$totalResult],200);
         }catch(\Exception $error) {
             return response()->json(['error' => $error->getMessage()],500);
         }

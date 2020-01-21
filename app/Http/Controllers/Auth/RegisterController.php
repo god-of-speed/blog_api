@@ -93,9 +93,10 @@ class RegisterController extends Controller
         $token = auth()->login($user);
 
         return response()->json([
+            'user' => auth()->user(),
+            'role' => Role::find(auth()->user()->roleId),
             'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60 * 24 * 7
+            'token_type' => 'bearer'
         ]);
         }catch(\Exception $error){
             return response()->json(['error'=>$error]);
