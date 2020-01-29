@@ -58746,6 +58746,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Error__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../components/Error */ "./resources/js/components/Error.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_15__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
@@ -58779,6 +58780,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -58918,7 +58920,8 @@ function (_Component) {
       }, this.state.content.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "topics"
       }, this.state.topics.map(function (topic) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Link, {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_16__["Link"], {
+          key: topic.id,
           to: '/topic?topic_id=' + topic.id + '&topic_name=' + topic.title
         }, topic.title);
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
@@ -58959,7 +58962,7 @@ function (_Component) {
           "display": "none"
         }
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_icons_Edit__WEBPACK_IMPORTED_MODULE_5___default.a, null), "Edit post"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        onClick: deleteContent,
+        onClick: this.deleteContent,
         style: this.props.user_role == 'ADMIN' ? {} : {
           "display": "none"
         }

@@ -14,6 +14,7 @@ import Axios from "axios";
 import PersonIcon from "@material-ui/icons/Person";
 import Error from "../components/Error";
 import ReactDOM from "react-dom";
+import { Link } from "react-router-dom";
 
 class Content extends Component {
     constructor(prop) {
@@ -139,7 +140,7 @@ class Content extends Component {
                 <div id="topics">
                     {
                         this.state.topics.map((topic)=>{
-                            return (<Link to={'/topic?topic_id='+topic.id+'&topic_name='+topic.title}>{topic.title}</Link>);
+                            return (<Link key={topic.id} to={'/topic?topic_id='+topic.id+'&topic_name='+topic.title}>{topic.title}</Link>);
                         })
                     }
                 </div>
@@ -191,7 +192,7 @@ class Content extends Component {
                         <EditIcon />
                         Edit post
                     </button>
-                    <button onClick={deleteContent} style={this.props.user_role =='ADMIN'  ? {} : {"display":"none"}}>
+                    <button onClick={this.deleteContent} style={this.props.user_role =='ADMIN'  ? {} : {"display":"none"}}>
                         <DeleteIcon /> Delete
                     </button>
                     <button onClick={this.publishContent} style={this.state.content.isPublished == false && this.props.user_role =='ADMIN'  ? {} : {"display":"none"}}>
